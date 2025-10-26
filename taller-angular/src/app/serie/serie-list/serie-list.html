@@ -1,44 +1,53 @@
-<div class="container-fluid">
-  <div class="col-6">
-    <table class="table">
-      <thead>
-        <tr>
-          <th class="h4">id</th>
-          <th class="h4">Name</th>
-          <th class="h4">Channel</th>
-          <th class="h4">Seasons</th>
-          <th class="h4">Description</th>
-          <th class="h4">Webpage</th>
-          <th class="h4">Poster</th>
-        </tr>
-      </thead>
-      <tbody>
-        @for (s of series; track s) {
-        <tr>
-          <td>
-            <dd>{{ s.id }}</dd>
-          </td>
-          <td>
-            <dd>{{ s.Name }}</dd>
-          </td>
-          <td>
-            <dd>{{s.Channel  }}</dd>
-          </td>
-          <td>
-            <dd>{{s.Seasons  }}</dd>
-          </td>
-          <td>
-            <dd>{{s.Description  }}</dd>
-          </td>
-          <td>
-            <dd>{{s.Webpage  }}</dd>
-          </td>
-          <td>
-            <dd>{{s.Poster  }}</dd>
-          </td>
-        </tr>
-        }
-      </tbody>
-    </table>
+<div class="container mt-4">
+  <div class="row g-4">
+    <!-- Tabla -->
+    <div class="col-lg-8">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>Canal</th>
+            <th>Temporadas</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let s of series; trackBy: trackById"
+              (click)="onSelect(s)"
+              [class.table-active]="selectedSerie?.id === s.id"
+              style="cursor:pointer">
+            <td>{{ s.id }}</td>
+            <td>{{ s.name }}</td>
+            <td>{{ s.channel }}</td>
+            <td>{{ s.seasons }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="mt-2 fw-semibold">
+        Promedio de temporadas: {{ avgSeasons | number:'1.1-1' }}
+      </p>
+    </div>
+
+    <!-- Detalle (imagen + descripción + link) -->
+    <div class="col-lg-4" *ngIf="selectedSerie as d">
+      <div class="card shadow-sm">
+        <img *ngIf="d.poster" [src]="d.poster" class="card-img-top img-fluid" [alt]="d.name">
+        <div class="card-body">
+          <h5 class="card-title mb-2">{{ d.name }}</h5>
+          <p class="text-muted mb-2">
+            <small>Canal: {{ d.channel }} · Temporadas: {{ d.seasons }}</small>
+          </p>
+          <p class="card-text" style="white-space: pre-line;">{{ d.description }}</p>
+          <a *ngIf="d.webpage" [href]="d.webpage" target="_blank" rel="noopener"
+             class="btn btn-outline-primary btn-sm">
+            Ver más
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
+
+
+

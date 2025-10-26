@@ -1,15 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SerieList } from './serie-list/serie-list';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
 @NgModule({
   declarations: [
-    SerieList
+    SerieList,
+    
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    HttpClientModule
   ],
 
   exports: [

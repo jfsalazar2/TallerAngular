@@ -13,7 +13,7 @@ export class SerieService {
 
   constructor(private http: HttpClient) { }
 
-  getCourses(): Observable<Serie[]> {
+  getSeries(): Observable<Serie[]> {
     return this.http.get<Serie[]>(this.apiUrl);
   
 }
